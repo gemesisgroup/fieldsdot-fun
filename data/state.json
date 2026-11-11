@@ -1,0 +1,18 @@
+{
+  "live": false,
+  "chainId": 99901,
+  "token": null,
+  "rewards": null,
+  "updatedAt": null,
+  "round": 0,
+  "roundSeconds": 900,
+  "nextPayoutAt": null,
+  "potHype": 0,
+  "forfeitHype": 0,
+  "totalPaidHype": 0,
+  "rewardsHype": 0,
+  "eligible": 0,
+  "minHold": 100000,
+  "holders": [],
+  "feed": []
+}

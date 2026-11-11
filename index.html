@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0c2c23" />
+  <title>FIELDS — Hold the field</title>
+  <meta name="description" content="$FIELDS on Elysium. Every 15 minutes the 5% sell tax is harvested into HYPE and paid to the wallets that held, by bag × multiplier. Sell and your share goes to the holders who stayed." />
+  <meta property="og:title" content="FIELDS — Sellers pay. Holders get paid." />
+  <meta property="og:description" content="Hold $FIELDS on Elysium. HYPE harvests every 15 minutes, multiplier up to 5x." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22 shape-rendering=%22crispEdges%22%3E%3Crect width=%2216%22 height=%2216%22 fill=%22%23122d25%22/%3E%3Crect x=%227%22 y=%225%22 width=%222%22 height=%228%22 fill=%22%23d4fa77%22/%3E%3Crect x=%224%22 y=%223%22 width=%223%22 height=%223%22 fill=%22%23d4fa77%22/%3E%3Crect x=%229%22 y=%223%22 width=%223%22 height=%223%22 fill=%22%23d4fa77%22/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" />
+  <link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/tiny5.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="topbar" id="topbar">
+    <div class="wrap top-inner">
+      <a class="brand" href="#top" aria-label="Fields, back to top">
+        <canvas class="brand-mark" width="12" height="12" aria-hidden="true"></canvas>
+        <span class="brand-name">fields<span class="dot">.</span></span>
+      </a>
+      <nav class="navigation" id="main-nav" aria-label="Main navigation">
+        <a href="#wallet" class="active">Your wallet</a>
+        <a href="#grow">How it works</a>
+        <a href="#holders">Holders</a>
+        <a href="#forfeits">Payouts</a>
+      </nav>
+      <div class="token-chip">
+        <span class="chip-ticker" data-ticker>$FIELDS</span>
+        <button type="button" class="chip-ca" id="ca-short" title="Click to copy the contract address">TBA</button>
+        <a class="chip-btn chip-buy" id="buy-link" href="#" target="_blank" rel="noopener" hidden>Buy</a>
+        <a class="chip-btn" id="x-link" href="#" target="_blank" rel="noopener" hidden>X</a>
+      </div>
+      <button type="button" class="mobile-menu" id="mobile-menu" aria-controls="main-nav" aria-expanded="false">MENU +</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" id="wallet" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1 id="hero-title" class="reveal">Hold the field.</h1>
+          <p class="hero-lead reveal">Sellers pay. Holders get paid. Every 15 minutes the 5% sell tax is harvested into HYPE and paid to the wallets that stayed, by bag × multiplier.</p>
+
+          <div class="wallet-panel reveal">
+            <form class="wallet-form" id="wallet-form" novalidate>
+              <label class="sr-only" for="wallet-address">Wallet address</label>
+              <input id="wallet-address" name="wallet" placeholder="Paste your 0x wallet" autocomplete="off" spellcheck="false" aria-describedby="wallet-feedback" />
+              <button type="submit" class="btn btn-acid">Check my patch</button>
+            </form>
+            <a class="btn btn-buy" id="buy-hero" href="#" target="_blank" rel="noopener" hidden>Buy $FIELDS &#8599;</a>
+            <p class="form-feedback" id="wallet-feedback" role="status" aria-live="polite">Paste any wallet to see its bag, multiplier and HYPE paid.</p>
+            <div class="wallet-card" id="wallet-card" hidden></div>
+          </div>
+
+          <ul class="hero-facts reveal" aria-label="Key facts">
+            <li><b>5%</b> sell tax feeds the pot</li>
+            <li><b>15 min</b> between harvests</li>
+            <li><b>5x</b> max multiplier</li>
+          </ul>
+        </div>
+
+        <aside class="hero-field reveal" aria-label="Next harvest countdown">
+          <canvas id="field-canvas" class="field-canvas" width="192" height="124" role="img" aria-label="Pixel field: crops grow as the round runs and are harvested when the timer hits zero"></canvas>
+          <div class="field-hud">
+            <div class="hud-top">
+              <span class="hud-label">Next harvest</span>
+              <span class="round-indicator" id="round-indicator">STARTS AT LAUNCH</span>
+            </div>
+            <div class="big-time" id="timer" aria-live="off">15:00</div>
+            <div class="progress-blocks" id="progress-blocks" aria-hidden="true"></div>
+            <div class="hud-bottom"><span>New round every 15 min</span><span id="updated">Elysium mainnet</span></div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="wrap utility-bar reveal">
+        <span>Payout pool <a id="pool-link" href="#" target="_blank" rel="noopener"><strong id="pool-balance">— HYPE</strong></a></span>
+        <span>Chain <strong data-chain>ELYSIUM</strong></span>
+        <span>Explorer <a id="explorer-link" href="https://elysium.kinetiq.xyz/explorer" target="_blank" rel="noopener"><strong>Elysium ↗</strong></a></span>
+        <button class="btn btn-ghost" type="button" id="add-network">+ Add Elysium to wallet</button>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="ticker" aria-label="Live protocol stats">
+      <div class="ticker-track" id="ticker-track">
+        <span>Waiting for the first harvest</span><i></i>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <section class="section stats" id="metrics" aria-labelledby="metrics-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="metrics-title" class="reveal">The field report.</h2>
+          <p class="section-note reveal">Four numbers, read on-chain from Elysium and refreshed every round. <span class="data-stamp" id="data-stamp">On-chain · Elysium</span></p>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card sc-pot reveal">
+            <h3 class="stat-title">Fee pot</h3>
+            <div class="stat-value"><span id="pot" data-count>0</span><span class="stat-unit">HYPE</span></div>
+            <p class="stat-foot">Collected this round</p>
+            <canvas class="stat-art" data-art="pot" width="24" height="24" aria-hidden="true"></canvas>
+          </article>
+          <article class="stat-card sc-forfeit reveal">
+            <h3 class="stat-title">Forfeit pot</h3>
+            <div class="stat-value"><span id="forfeit" data-count>0</span><span class="stat-unit">HYPE</span></div>
+            <p class="stat-foot">Rides along with the next round</p>
+            <canvas class="stat-art" data-art="wilt" width="24" height="24" aria-hidden="true"></canvas>
+          </article>
+          <article class="stat-card sc-paid reveal">
+            <h3 class="stat-title">Paid to holders</h3>
+            <div class="stat-value"><span id="paid" data-count>0</span><span class="stat-unit">HYPE</span></div>
+            <p class="stat-foot">Total distributed</p>
+            <canvas class="stat-art" data-art="coins" width="24" height="24" aria-hidden="true"></canvas>
+          </article>
+          <article class="stat-card sc-holders reveal">
+            <h3 class="stat-title">Holders counted</h3>
+            <div class="stat-value" id="eligible" data-count>0</div>
+            <p class="stat-foot">Eligible wallets</p>
+            <canvas class="stat-art" data-art="sprout" width="24" height="24" aria-hidden="true"></canvas>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROW SIMULATOR -->
+    <section class="section grow" id="grow" aria-labelledby="grow-title">
+      <div class="wrap grow-grid">
+        <div class="grow-copy">
+          <h2 id="grow-title" class="reveal">Watch your bag grow.</h2>
+          <p class="reveal">Your cut of every harvest is your bag times your multiplier. The multiplier climbs while you hold and drops to 1x the moment you sell. Drag the sliders and see it.</p>
+
+          <div class="sim reveal" id="sim">
+            <label class="sim-row">
+              <span class="sim-label">Bag <output id="sim-bag-out">1M</output> $FIELDS</span>
+              <input type="range" id="sim-bag" min="0" max="100" value="45" />
+            </label>
+            <label class="sim-row">
+              <span class="sim-label">Held for <output id="sim-time-out">0m</output></span>
+              <input type="range" id="sim-time" min="0" max="54" value="14" />
+            </label>
+            <div class="sim-result">
+              <div><span>Multiplier</span><b id="sim-mult">1x</b></div>
+              <div><span>Harvest weight</span><b id="sim-weight">1M</b></div>
+              <div><span>Next step</span><b id="sim-next">1.5x in 10m</b></div>
+            </div>
+            <div class="sim-actions">
+              <button type="button" class="btn btn-acid" id="sim-hold">Keep holding +1h</button>
+              <button type="button" class="btn btn-sell" id="sim-sell">Sell</button>
+            </div>
+            <p class="sim-note" id="sim-note" role="status" aria-live="polite">A wallet that sells during a round forfeits that round's share to the holders who stayed.</p>
+          </div>
+        </div>
+
+        <div class="grow-stage reveal">
+          <canvas id="plant-canvas" class="plant-canvas" width="96" height="96" role="img" aria-label="Your crop at the current multiplier"></canvas>
+          <ol class="stages" id="stages" aria-label="Multiplier stages">
+            <li data-stage="0"><canvas width="16" height="16" aria-hidden="true"></canvas><b>1x</b><span>Planted</span></li>
+            <li data-stage="1"><canvas width="16" height="16" aria-hidden="true"></canvas><b>1.5x</b><span>10 min</span></li>
+            <li data-stage="2"><canvas width="16" height="16" aria-hidden="true"></canvas><b>2x</b><span>1 hour</span></li>
+            <li data-stage="3"><canvas width="16" height="16" aria-hidden="true"></canvas><b>3x</b><span>2 hours</span></li>
+            <li data-stage="4"><canvas width="16" height="16" aria-hidden="true"></canvas><b>4x</b><span>3 hours</span></li>
+            <li data-stage="5"><canvas width="16" height="16" aria-hidden="true"></canvas><b>5x</b><span>4 hours</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOLDERS -->
+    <section class="section holders" id="holders" aria-labelledby="holders-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="holders-title" class="reveal">The holder board.</h2>
+          <p class="section-note reveal">Ranked by bag × multiplier. The top 200 wallets, refreshed every harvest.</p>
+        </div>
+        <div class="holders-layout">
+          <div class="board reveal">
+            <div class="board-top">
+              <span class="board-top-title">Top 200 holders</span>
+              <div class="search-wrap"><label class="sr-only" for="holder-search">Find a wallet</label><input id="holder-search" placeholder="Find a wallet…" spellcheck="false" autocomplete="off" /></div>
+            </div>
+            <div class="thead"><span>Rank</span><span>Wallet</span><span>Bag</span><span>Multiplier</span><span>Share</span></div>
+            <div class="board-rows" id="board-rows"></div>
+            <div class="empty-state" id="empty-state">
+              <canvas class="empty-art" data-art="seed" width="24" height="24" aria-hidden="true"></canvas>
+              <h3 id="empty-title">NO HOLDERS YET</h3>
+              <p id="empty-message">The board fills in after the first harvest round.</p>
+              <span class="empty-badge" id="empty-badge">First round starts at launch</span>
+            </div>
+            <div class="board-bottom"><span>Source · Elysium on-chain</span><span id="showing">SHOWING 0 OF 200</span></div>
+          </div>
+
+          <aside class="rules-panel reveal" id="how-it-works" aria-labelledby="rules-title">
+            <h3 id="rules-title">How the field works.</h3>
+            <ol class="rules">
+              <li><strong>Hold $FIELDS</strong><span>100,000 or more puts your wallet on the board.</span></li>
+              <li><strong>Grow your multiplier</strong><span>1.5x after 10 minutes, then +1x every hour, up to 5x. Buying more never resets it.</span></li>
+              <li><strong>Get harvested</strong><span>Every 15 minutes the pot is paid in HYPE straight to your wallet.</span></li>
+            </ol>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOOP + FEED -->
+    <section class="section loop" id="forfeits" aria-labelledby="forfeits-title">
+      <div class="wrap">
+        <div class="loop-box">
+          <div class="loop-copy">
+            <h2 id="forfeits-title" class="reveal">The field never sleeps.</h2>
+            <p class="reveal">Sell or send out any amount and you drop back to 1x. What you were owed for that round goes into the forfeit pot and is paid to the wallets that stayed. Every harvest and forfeit lands here, linked to the Elysium explorer.</p>
+          </div>
+          <ol class="loop-steps reveal" aria-label="The loop">
+            <li><canvas data-art="coins" width="16" height="16" aria-hidden="true"></canvas>Sells feed the pot</li>
+            <li><canvas data-art="sprout" width="16" height="16" aria-hidden="true"></canvas>Holders grow their weight</li>
+            <li><canvas data-art="pot" width="16" height="16" aria-hidden="true"></canvas>Every round is harvested</li>
+          </ol>
+          <ul class="feed" id="feed" aria-live="polite"><li class="feed-empty">No payouts yet. The first round is paid 15 minutes after launch.</li></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <canvas id="footer-field" class="footer-field" width="320" height="40" aria-hidden="true"></canvas>
+      <p class="foot-word" aria-hidden="true">fields.</p>
+      <div class="foot-row">
+        <span>Grow your bag. Built for the holders.</span>
+        <span>© Fields · Built on <span data-chain>ELYSIUM</span></span>
+      </div>
+      <p class="foot-legal">Holders are paid out of trading fees, so the pot is only as big as the trading.
+        Nothing here is investment advice and no return is promised.
+        <a id="rewards-link" href="#" target="_blank" rel="noopener">Payout contract &#8599;</a></p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="assets/config.js"></script>
+  <script src="assets/fields.js" defer></script>
+  <script src="assets/art.js" defer></script>
+</body>
+</html>
